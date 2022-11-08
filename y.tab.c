@@ -65,7 +65,7 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 1 "mod.y"
+#line 1 "mod-warning.y"
 
 #include <stdio.h>
 int yylex(void);
@@ -1308,97 +1308,97 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 11 "mod.y"
+#line 11 "mod-warning.y"
     { printf("%d\n", (yyvsp[(1) - (2)])); }
     break;
 
   case 3:
-#line 14 "mod.y"
+#line 14 "mod-warning.y"
     { (yyval) = (yyvsp[(1) - (3)]) + (yyvsp[(3) - (3)]); }
     break;
 
   case 4:
-#line 15 "mod.y"
+#line 15 "mod-warning.y"
     { (yyval) = (yyvsp[(1) - (3)]) - (yyvsp[(3) - (3)]); }
     break;
 
   case 5:
-#line 16 "mod.y"
+#line 16 "mod-warning.y"
     { (yyval) = (yyvsp[(1) - (1)]); }
     break;
 
   case 6:
-#line 19 "mod.y"
+#line 19 "mod-warning.y"
     { (yyval) = (yyvsp[(1) - (3)]) * (yyvsp[(3) - (3)]); }
     break;
 
   case 7:
-#line 20 "mod.y"
+#line 20 "mod-warning.y"
     { (yyval) = (yyvsp[(1) - (3)]) / (yyvsp[(3) - (3)]); }
     break;
 
   case 8:
-#line 21 "mod.y"
+#line 21 "mod-warning.y"
     { (yyval) = (yyvsp[(1) - (3)]) % (yyvsp[(3) - (3)]); }
     break;
 
   case 9:
-#line 22 "mod.y"
+#line 22 "mod-warning.y"
     { (yyval) = (yyvsp[(1) - (1)]); }
     break;
 
   case 10:
-#line 25 "mod.y"
+#line 25 "mod-warning.y"
     {(yyval) = (yyvsp[(2) - (3)]);}
     break;
 
   case 11:
-#line 26 "mod.y"
+#line 26 "mod-warning.y"
     {(yyval) = 0; }
     break;
 
   case 12:
-#line 27 "mod.y"
+#line 27 "mod-warning.y"
     {(yyval) = 1; }
     break;
 
   case 13:
-#line 28 "mod.y"
+#line 28 "mod-warning.y"
     {(yyval) = 2; }
     break;
 
   case 14:
-#line 29 "mod.y"
+#line 29 "mod-warning.y"
     {(yyval) = 3; }
     break;
 
   case 15:
-#line 30 "mod.y"
+#line 30 "mod-warning.y"
     {(yyval) = 4; }
     break;
 
   case 16:
-#line 31 "mod.y"
+#line 31 "mod-warning.y"
     {(yyval) = 5; }
     break;
 
   case 17:
-#line 32 "mod.y"
+#line 32 "mod-warning.y"
     {(yyval) = 6; }
     break;
 
   case 18:
-#line 33 "mod.y"
+#line 33 "mod-warning.y"
     {(yyval) = 7; }
     break;
 
   case 19:
-#line 34 "mod.y"
+#line 34 "mod-warning.y"
     {(yyval) = 8; }
     break;
 
   case 20:
-#line 35 "mod.y"
+#line 35 "mod-warning.y"
     {(yyval) = 9; }
     break;
 
@@ -1618,17 +1618,21 @@ yyreturn:
 }
 
 
-#line 37 "mod.y"
+#line 37 "mod-warning.y"
 
 
 #include <ctype.h>
 
 int yylex()
 {
-    int c;
+        int c;
 
-    while( (c = getchar()) == ' ');
-    return c;
+        while(1){
+            c = getchar();
+            if( c  != ' ' && c  != '\t')
+                break;
+        };
+        return c;
 }
 
 
