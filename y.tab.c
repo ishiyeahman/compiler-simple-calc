@@ -71,6 +71,9 @@
 int yylex(void);
 void yyerror(const char *s);
 int getchar(void);
+char usingChar[] = {'\n', '+', '-', '*', '/', '%', '(', ')', '0', '1','2','3','4', '5', '6','7','8','9'};
+int arraySize =  sizeof(usingChar) / sizeof(char);
+int isUsedChar(int);
 
 
 /* Enabling traces.  */
@@ -104,7 +107,7 @@ typedef int YYSTYPE;
 
 
 /* Line 216 of yacc.c.  */
-#line 108 "y.tab.c"
+#line 111 "y.tab.c"
 
 #ifdef short
 # undef short
@@ -392,9 +395,9 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    11,    11,    14,    15,    16,    19,    20,    21,    22,
-      25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
-      35
+       0,    14,    14,    17,    18,    19,    22,    23,    24,    25,
+      28,    29,    30,    31,    32,    33,    34,    35,    36,    37,
+      38
 };
 #endif
 
@@ -1308,103 +1311,103 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 11 "mod-warning.y"
+#line 14 "mod-warning.y"
     { printf("%d\n", (yyvsp[(1) - (2)])); }
     break;
 
   case 3:
-#line 14 "mod-warning.y"
+#line 17 "mod-warning.y"
     { (yyval) = (yyvsp[(1) - (3)]) + (yyvsp[(3) - (3)]); }
     break;
 
   case 4:
-#line 15 "mod-warning.y"
+#line 18 "mod-warning.y"
     { (yyval) = (yyvsp[(1) - (3)]) - (yyvsp[(3) - (3)]); }
     break;
 
   case 5:
-#line 16 "mod-warning.y"
+#line 19 "mod-warning.y"
     { (yyval) = (yyvsp[(1) - (1)]); }
     break;
 
   case 6:
-#line 19 "mod-warning.y"
+#line 22 "mod-warning.y"
     { (yyval) = (yyvsp[(1) - (3)]) * (yyvsp[(3) - (3)]); }
     break;
 
   case 7:
-#line 20 "mod-warning.y"
+#line 23 "mod-warning.y"
     { (yyval) = (yyvsp[(1) - (3)]) / (yyvsp[(3) - (3)]); }
     break;
 
   case 8:
-#line 21 "mod-warning.y"
+#line 24 "mod-warning.y"
     { (yyval) = (yyvsp[(1) - (3)]) % (yyvsp[(3) - (3)]); }
     break;
 
   case 9:
-#line 22 "mod-warning.y"
+#line 25 "mod-warning.y"
     { (yyval) = (yyvsp[(1) - (1)]); }
     break;
 
   case 10:
-#line 25 "mod-warning.y"
+#line 28 "mod-warning.y"
     {(yyval) = (yyvsp[(2) - (3)]);}
     break;
 
   case 11:
-#line 26 "mod-warning.y"
+#line 29 "mod-warning.y"
     {(yyval) = 0; }
     break;
 
   case 12:
-#line 27 "mod-warning.y"
+#line 30 "mod-warning.y"
     {(yyval) = 1; }
     break;
 
   case 13:
-#line 28 "mod-warning.y"
+#line 31 "mod-warning.y"
     {(yyval) = 2; }
     break;
 
   case 14:
-#line 29 "mod-warning.y"
+#line 32 "mod-warning.y"
     {(yyval) = 3; }
     break;
 
   case 15:
-#line 30 "mod-warning.y"
+#line 33 "mod-warning.y"
     {(yyval) = 4; }
     break;
 
   case 16:
-#line 31 "mod-warning.y"
+#line 34 "mod-warning.y"
     {(yyval) = 5; }
     break;
 
   case 17:
-#line 32 "mod-warning.y"
+#line 35 "mod-warning.y"
     {(yyval) = 6; }
     break;
 
   case 18:
-#line 33 "mod-warning.y"
+#line 36 "mod-warning.y"
     {(yyval) = 7; }
     break;
 
   case 19:
-#line 34 "mod-warning.y"
+#line 37 "mod-warning.y"
     {(yyval) = 8; }
     break;
 
   case 20:
-#line 35 "mod-warning.y"
+#line 38 "mod-warning.y"
     {(yyval) = 9; }
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1408 "y.tab.c"
+#line 1411 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1618,7 +1621,7 @@ yyreturn:
 }
 
 
-#line 37 "mod-warning.y"
+#line 40 "mod-warning.y"
 
 
 #include <ctype.h>
@@ -1629,10 +1632,24 @@ int yylex()
 
         while(1){
             c = getchar();
-            if( c  != ' ' && c  != '\t')
-                break;
+            if( c  != ' ' && c  != '\t'){
+                if(isUsedChar(c))
+                        break;
+                
+                printf("'%c' is prohibited.\n", c);
+            }
+            
         };
         return c;
+}
+
+int isUsedChar(int c){
+        for(int i = 0; i < arraySize - 1; i++){
+                if( c == (char)usingChar[i])
+                        return 1;
+        }
+
+        return 0;
 }
 
 

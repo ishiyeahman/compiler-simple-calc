@@ -3,6 +3,9 @@
 int yylex(void);
 void yyerror(const char *s);
 int getchar(void);
+char usingChar[] = {'\n', '+', '-', '*', '/', '%', '(', ')', '0', '1','2','3','4', '5', '6','7','8','9'};
+int arraySize =  sizeof(usingChar) / sizeof(char);
+int isUsedChar(int);
 %}
 
 %start line
@@ -33,7 +36,6 @@ factor  :   '(' expr ')'        {$$ = $2;}
         |   '7'                 {$$ = 7; }
         |   '8'                 {$$ = 8; }
         |   '9'                 {$$ = 9; }
-        /* |                       {printf("There is a unavailble character!"); } */
         ;
 %%
 
@@ -45,9 +47,23 @@ int yylex()
 
         while(1){
             c = getchar();
-            if( c  != ' ' && c  != '\t')
-                break;
+            if( c  != ' ' && c  != '\t'){
+                if(isUsedChar(c))
+                        break;
+                
+                printf("'%c' is prohibited.\n", c);
+            }
+            
         };
         return c;
+}
+
+int isUsedChar(int c){
+        for(int i = 0; i < arraySize - 1; i++){
+                if( c == (char)usingChar[i])
+                        return 1;
+        }
+
+        return 0;
 }
 
