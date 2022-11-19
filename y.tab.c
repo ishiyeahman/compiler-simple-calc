@@ -77,6 +77,8 @@ int arraySize =  sizeof(usingChar) / sizeof(char);
 int isUsedChar(int);
 void exit(int);
 
+// yyperse() : 戻り値 error => 1
+
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -109,7 +111,7 @@ typedef int YYSTYPE;
 
 
 /* Line 216 of yacc.c.  */
-#line 113 "y.tab.c"
+#line 115 "y.tab.c"
 
 #ifdef short
 # undef short
@@ -398,9 +400,9 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    18,    18,    23,    24,    25,    28,    29,    31,    32,
-      35,    36,    37,    41,    46,    47,    48,    49,    50,    51,
-      52,    53,    54,    55
+       0,    19,    19,    27,    28,    29,    32,    33,    39,    40,
+      43,    44,    45,    49,    54,    55,    56,    57,    58,    59,
+      60,    61,    62,    63
 };
 #endif
 
@@ -1320,121 +1322,127 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 18 "simpleCalc.y"
+#line 19 "simpleCalc.y"
     {
                         printf("ans >> %d\n", (yyvsp[(1) - (2)])); 
-                        if( yyparse()) exit(1);}
+                        /* 再帰的に計算 */
+                        /* syntax errorならば再帰を復帰せずその処理で終了*/
+                        if( yyparse()) exit(1); 
+                        }
     break;
 
   case 3:
-#line 23 "simpleCalc.y"
+#line 27 "simpleCalc.y"
     { (yyval) = (yyvsp[(1) - (3)]) + (yyvsp[(3) - (3)]); }
     break;
 
   case 4:
-#line 24 "simpleCalc.y"
+#line 28 "simpleCalc.y"
     { (yyval) = (yyvsp[(1) - (3)]) - (yyvsp[(3) - (3)]); }
     break;
 
   case 5:
-#line 25 "simpleCalc.y"
+#line 29 "simpleCalc.y"
     { (yyval) = (yyvsp[(1) - (1)]); }
     break;
 
   case 6:
-#line 28 "simpleCalc.y"
+#line 32 "simpleCalc.y"
     { (yyval) = (yyvsp[(1) - (3)]) * (yyvsp[(3) - (3)]); }
     break;
 
   case 7:
-#line 29 "simpleCalc.y"
-    { if((yyvsp[(3) - (3)]) == 0) { printf("division by zero\n"); } 
-                                else { (yyval) = (yyvsp[(1) - (3)]) / (yyvsp[(3) - (3)]);} }
+#line 33 "simpleCalc.y"
+    { if((yyvsp[(3) - (3)]) == 0) { 
+                                        /*計算を行わず0を出力する*/
+                                        printf("division by zero\n"); 
+                                        (yyval) = 0;  
+                                } else { (yyval) = (yyvsp[(1) - (3)]) / (yyvsp[(3) - (3)]);} }
     break;
 
   case 8:
-#line 31 "simpleCalc.y"
+#line 39 "simpleCalc.y"
     { (yyval) = (yyvsp[(1) - (3)]) % (yyvsp[(3) - (3)]); }
     break;
 
   case 9:
-#line 32 "simpleCalc.y"
+#line 40 "simpleCalc.y"
     { (yyval) = (yyvsp[(1) - (1)]); }
     break;
 
   case 10:
-#line 35 "simpleCalc.y"
+#line 43 "simpleCalc.y"
     {(yyval) = (yyvsp[(2) - (3)]);}
     break;
 
   case 11:
-#line 36 "simpleCalc.y"
+#line 44 "simpleCalc.y"
     {(yyval) = (yyvsp[(1) - (1)]);}
     break;
 
   case 12:
-#line 37 "simpleCalc.y"
+#line 45 "simpleCalc.y"
     {(yyval) = (yyvsp[(1) - (1)]);}
     break;
 
   case 13:
-#line 41 "simpleCalc.y"
+#line 49 "simpleCalc.y"
     {(yyval) = - (yyvsp[(2) - (2)]);}
     break;
 
   case 14:
-#line 46 "simpleCalc.y"
+#line 54 "simpleCalc.y"
     {(yyval) = 0; }
     break;
 
   case 15:
-#line 47 "simpleCalc.y"
+#line 55 "simpleCalc.y"
     {(yyval) = 1; }
     break;
 
   case 16:
-#line 48 "simpleCalc.y"
+#line 56 "simpleCalc.y"
     {(yyval) = 2; }
     break;
 
   case 17:
-#line 49 "simpleCalc.y"
+#line 57 "simpleCalc.y"
     {(yyval) = 3; }
     break;
 
   case 18:
-#line 50 "simpleCalc.y"
+#line 58 "simpleCalc.y"
     {(yyval) = 4; }
     break;
 
   case 19:
-#line 51 "simpleCalc.y"
+#line 59 "simpleCalc.y"
     {(yyval) = 5; }
     break;
 
   case 20:
-#line 52 "simpleCalc.y"
+#line 60 "simpleCalc.y"
     {(yyval) = 6; }
     break;
 
   case 21:
-#line 53 "simpleCalc.y"
+#line 61 "simpleCalc.y"
     {(yyval) = 7; }
     break;
 
   case 22:
-#line 54 "simpleCalc.y"
+#line 62 "simpleCalc.y"
     {(yyval) = 8; }
     break;
 
   case 23:
-#line 55 "simpleCalc.y"
+#line 63 "simpleCalc.y"
     {(yyval) = 9; }
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1438 "y.tab.c"
+#line 1446 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1648,7 +1656,7 @@ yyreturn:
 }
 
 
-#line 60 "simpleCalc.y"
+#line 68 "simpleCalc.y"
 
 
 #include <ctype.h>
@@ -1658,15 +1666,17 @@ int yylex()
         int c;
         
         while(1){
-            c = getchar();
-            if( c  != ' ' && c  != '\t'){
-                if(isUsedChar(c))
-                        break;
+                c = getchar();
+                /* 空白とタブを読み飛ばす*/
+                if( c  != ' ' && c  != '\t'){
+                        if(isUsedChar(c))
+                                break;
                 
-                /* プログラム終了*/
+                /* END(q)を入力するとプログラム終了*/
                 if(c == END)
                         exit(0);
 
+                /* 予約文字以外の場合エラーを出力し文字を再読み込み*/
                 printf("'%c' is prohibited.\n", c);
             }
             
@@ -1676,6 +1686,7 @@ int yylex()
 }
 
 int isUsedChar(int c){
+        /* usingCharで定義されていなければ return 0*/
         for(int i = 0; i < arraySize ; i++){
                 if( c == (char)usingChar[i])
                         return 1;
@@ -1683,5 +1694,6 @@ int isUsedChar(int c){
 
         return 0;
 }
+
 
 

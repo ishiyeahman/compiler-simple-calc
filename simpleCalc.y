@@ -18,7 +18,9 @@ void exit(int);
 
 line    :   expr '\n'   {
                         printf("ans >> %d\n", $1); 
-                        if( yyparse()) exit(1); /* syntax errorならば再帰を復帰せずその処理で終了*/
+                        /* 再帰的に計算 */
+                        /* syntax errorならば再帰を復帰せずその処理で終了*/
+                        if( yyparse()) exit(1); 
                         }
         ;
 
@@ -27,10 +29,14 @@ expr    :   expr '+' term       { $$ = $1 + $3; }
         |   term                { $$ = $1; }
         ;
 
-term    :   term '*' factor     { $$ = $1 * $3; } /*擬似変数*/
-        |   term '/' factor     { if($3 == 0) { printf("division by zero\n"); } 
-                                else { $$ = $1 / $3;} }
-        |   term '%' factor     { $$ = $1 % $3; } /* add mode (improve 1)*/
+term    :   term '*' factor     { $$ = $1 * $3; } 
+        |   term '/' factor     { if($3 == 0) { 
+                                        /*計算を行わず0を出力する*/
+                                        printf("division by zero\n"); 
+                                        $$ = 0;  
+                                } else { $$ = $1 / $3;} }
+        /* 剰余演算子を追加 */
+        |   term '%' factor     { $$ = $1 % $3; }  
         |   factor              { $$ = $1; }
         ;
 
@@ -69,14 +75,16 @@ int yylex()
         
         while(1){
                 c = getchar();
+                /* 空白とタブを読み飛ばす*/
                 if( c  != ' ' && c  != '\t'){
                         if(isUsedChar(c))
                                 break;
                 
-                /* プログラム終了*/
+                /* END(q)を入力するとプログラム終了*/
                 if(c == END)
                         exit(0);
 
+                /* 予約文字以外の場合エラーを出力し文字を再読み込み*/
                 printf("'%c' is prohibited.\n", c);
             }
             
@@ -86,6 +94,7 @@ int yylex()
 }
 
 int isUsedChar(int c){
+        /* usingCharで定義されていなければ return 0*/
         for(int i = 0; i < arraySize ; i++){
                 if( c == (char)usingChar[i])
                         return 1;

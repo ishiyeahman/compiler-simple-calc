@@ -35,19 +35,22 @@ int getchar(void);
 ## 実行例
 
 ```linux
-$ ./SimpleCalc
-1 + 2
-ans >> 3
-1 + -2
-ans >> -1
-(1 + 2)*4 - (3+9)/3  
-ans >> 8
-4/0
+5 :;@@ +2
+':' is prohibited.
+';' is prohibited.
+'@' is prohibited.
+'@' is prohibited.
+ans >> 7
+8 / 0
 division by zero
-ans >> 4
-9 % 2
+ans >> 0
+3 - 2
 ans >> 1
-9 %             2
+3 + -2
+ans >> 1
+(1+3)/2 - (8-7)/1
+ans >> 1
+6               % 5
 ans >> 1
 q
 ```
