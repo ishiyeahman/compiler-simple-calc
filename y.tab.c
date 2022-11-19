@@ -1644,7 +1644,7 @@ int yylex()
 }
 
 int isUsedChar(int c){
-        for(int i = 0; i < arraySize - 1; i++){
+        for(int i = 0; i < arraySize ; i++){
                 if( c == (char)usingChar[i])
                         return 1;
         }
