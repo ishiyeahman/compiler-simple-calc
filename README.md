@@ -31,3 +31,23 @@ int getchar(void);
 ```shell-session
 % ./[exeファイル名]
 ```
+
+## 実行例
+
+```linux
+$ ./SimpleCalc
+1 + 2
+ans >> 3
+1 + -2
+ans >> -1
+(1 + 2)*4 - (3+9)/3  
+ans >> 8
+4/0
+division by zero
+ans >> 4
+9 % 2
+ans >> 1
+9 %             2
+ans >> 1
+q
+```
